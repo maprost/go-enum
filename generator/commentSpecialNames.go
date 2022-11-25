@@ -6,16 +6,11 @@ import (
 )
 
 var (
-	regExVal = `( |\t|^)\_[a-zA-Z]+\_( |$|\t)`
+	regExVal = `\_[a-zA-Z]+\_`
 	regEx    = regexp.MustCompile(regExVal)
 )
 
 func commentSpecialNames(comment string, enum *Enum) {
-	/*
-		DSL:
-		- _key_ is auto separated
-	*/
-
 	// find special names
 	names := regEx.FindAllString(comment, -1)
 
