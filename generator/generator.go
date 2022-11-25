@@ -58,10 +58,11 @@ type Generator struct {
 
 // Enum holds data for a discovered enum in the parsed source
 type Enum struct {
-	Name   string
-	Prefix string
-	Type   string
-	Values []EnumValue
+	Name         string
+	Prefix       string
+	Type         string
+	Values       []EnumValue
+	SpecialNames map[string]string
 }
 
 // EnumValue holds the individual data for each enum value within the found enum.
@@ -428,6 +429,7 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 				}
 			}
 
+			commentSpecialNames(comment, enum)
 			ev := EnumValue{Name: name, RawName: rawName, PrefixedName: prefixedName, Value: data, Comment: comment}
 			enum.Values = append(enum.Values, ev)
 			data = increment(data)
